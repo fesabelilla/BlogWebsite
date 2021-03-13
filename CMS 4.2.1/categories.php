@@ -7,11 +7,12 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   <link rel="stylesheet" href="css/styles.css">
-  <title>Document</title>
+  <title>Categories</title>
 </head> 
 <body>
 
-<div style="height: 10px; background:#27aae1;"></div>
+<div style="height: 10px; background: #27aae1;"></div>
+
 <!-- Nav-bar start -->
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -73,15 +74,31 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">	
-		<h3><i class="fas fa-text-height" style="color:white;"></i>Basic</h3>
+		<h3><i class="fas fa-edit" style="color:#27aae1;"></i>Manage Categories</h3>
 		</div>
 	</div>
 </div>
 </header>
 
 
-<br>
+
 <!-- -->
+
+<!-- Main area -->
+
+<section class="container py-2 mb-4">
+	<div class="row" style="min-height: 50px; background: red">
+		<div class="offset-lg-1 col-lg-10" style="min-height: 50px; background: yellow">
+			
+		</div>
+		
+	</div>
+	
+</section>
+
+
+<!-- End Main area-->
+
 
 <!-- FOOTER -->
 <footer class="bg-dark text-white">
@@ -97,7 +114,7 @@
 	</div>
 
 </footer>
-<div style="height: 10px; background:#27aae1;"></div>
+<div style="height: 10px; background: #27aae1;"></div>
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
