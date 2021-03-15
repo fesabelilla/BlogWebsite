@@ -1,6 +1,20 @@
+<?php require_once("include/db.php"); ?>
+<?php require_once("include/function.php"); ?>
+
 <?php 
-require_once("include/db.php");
+	 if(isset($_POST["Submit"])){
+	 	$category = $_POST["categoryTitle"];
+	 }
+
+ 	if(empty($category)){
+ 		error = "All fileds must be filled out";
+ 		Redirect_to("categories.php");
+ 	}
+
+
  ?>
+
+
 
 <!DOCTYPE html>
 <html>
@@ -96,12 +110,12 @@ require_once("include/db.php");
 			<form class="" action="categories.php" method="post">
 					<div class="card bg-secondary text-light mb-3">
 						<div class="card-header">
-							<h1>Add new category</h1>
+							<h1>Add New Category</h1>
 						</div>
 						<div class="card-body bg-dark">
 							<div class="form-group">
 								<label for="title" style="color:white;">Category Title : </label>
-								<input class="form-control" type="text" name="Title" id="title" placeholder="Type title here ">
+								<input class="form-control" type="text" name="categoryTitle" id="title" placeholder="Type title here ">
 							</div>
 							<div class="row">
 								<div class="col-lg-6 mb-2">
@@ -109,7 +123,7 @@ require_once("include/db.php");
 									
 								</div>
 								<div class="col-lg-6 mb-2">
-									<button type="button" name="submit"class="btn btn-success btn-block">
+									<button type="button" name="Submit"class="btn btn-success btn-block">
 									<i class="fas fa-check"></i>Publish
 									</button>
 								</div>
