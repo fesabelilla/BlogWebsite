@@ -1,20 +1,25 @@
 <?php require_once("include/db.php"); ?>
 <?php require_once("include/function.php"); ?>
+<?php require_once("include/Sessions.php"); ?>
 
 <?php 
 	 if(isset($_POST["Submit"])){
 	 	$category = $_POST["categoryTitle"];
-	 }
+	 
 
  	if(empty($category)){
- 		error = "All fileds must be filled out";
+ 		$_SESSION["ErrorMessage"] = "All fileds must be filled out";
  		Redirect_to("categories.php");
+ 	}
+ 	if(!empty($category)){
+ 		$_SESSION["SuccessMessage"] = "Done";
  	}
 
 
+
+}
+
  ?>
-
-
 
 <!DOCTYPE html>
 <html>
@@ -107,6 +112,12 @@
 <section class="container py-2 mb-4">
 	<div class="row" >
 		<div class="offset-lg-1 col-lg-10" style="min-height:400px;">
+
+			<?php  
+				echo ErrorMessage();
+				echo SuccessMessage();
+			?>
+
 			<form class="" action="categories.php" method="post">
 					<div class="card bg-secondary text-light mb-3">
 						<div class="card-header">
@@ -123,7 +134,7 @@
 									
 								</div>
 								<div class="col-lg-6 mb-2">
-									<button type="button" name="Submit"class="btn btn-success btn-block">
+									<button type="submit" name="Submit"class="btn btn-success btn-block">
 									<i class="fas fa-check"></i>Publish
 									</button>
 								</div>
