@@ -4,20 +4,55 @@
 
 <?php 
 	 if(isset($_POST["Submit"])){
-	 	$category = $_POST["categoryTitle"];
-	 
 
+	 	$category = $_POST["categoryTitle"];
+	 	$admin = "Zahid";
+
+	 	date_default_timezone_set("Asia/Dhaka");
+		$currentTime = time();
+		$DateTime = strftime("%B-%d-%Y %H:%M:%S",$currentTime);
+		//echo $dateTime ;
+	 	
  	if(empty($category)){
  		$_SESSION["ErrorMessage"] = "All fileds must be filled out";
  		Redirect_to("categories.php");
  	}
- 	if(!empty($category)){
- 		$_SESSION["SuccessMessage"] = "Done";
+ 	elseif (strlen($category) < 5 ) {
+ 		$_SESSION["ErrorMessage"] = " Category Title should be greter then 5 characters ";
+ 		Redirect_to("categories.php");
  	}
+ 	elseif (strlen($category) > 100 ) {
+ 		$_SESSION["ErrorMessage"] = " Category Title should be less then 100 characters ";
+ 		Redirect_to("categories.php");
+ 	}
+ 	else{
+ 		// query insert in db
 
+ 		$sql = "insert into category(title,author,datetime)values(:categoryName,:adminName,:dateTime)";
 
+ 		// -> pdo obj notation [ PHP data obj]
+ 		$stmt = $connectionDB->prepare($sql);
+ 		$stmt->bindValue(':categoryName',$category);
+ 		$stmt->bindValue(':adminName', $admin);
+ 		$stmt->bindValue(':dateTime', $DateTime);
 
-}
+ 		$execute = $stmt->execute();
+
+ 		if($execute){
+ 			$_SESSION["SuccessMessage"] = "Category added  
+ 			Id : ".$connectionDB->lastInsertId() ." Successfully";
+ 			Redirect_to("categories.php");
+ 		}else{
+ 			$_SESSION["ErrorMessage"] = "Something went wrong. Try again!";
+ 			Redirect_to("categories.php");
+ 		}
+
+ 	}
+ 	
+ 	/*if(!empty($category)){
+ 		$_SESSION["SuccessMessage"] = "Done";
+ 	}*/
+} // ending of submit btn 
 
  ?>
 
