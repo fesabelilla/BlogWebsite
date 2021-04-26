@@ -166,9 +166,26 @@
 								<label for="categoryTitle" style="color:white;">Chose Category : </label>
 
 							<select class="form-control" id = "categoryTitle" name="category" >
-								<option value="">1</option>
-								<option value="">2</option>
-								<option value="">3</option>
+								<?php 
+									//fetching all the category from category table
+
+									global $connectionDB;	
+									$sql = "select id,title from category";	
+
+									$stmt = $connectionDB->query($sql);			
+
+									while ($dataRows = $stmt->fetch()) {
+												$id = $dataRows["id"];
+												$categoryName = $dataRows["title"];
+
+								 ?>
+								 <option><?php echo $categoryName;  ?> </option>
+
+								 <?php }  ?>
+
+
+
+
 							</select>
 							</div>
 
