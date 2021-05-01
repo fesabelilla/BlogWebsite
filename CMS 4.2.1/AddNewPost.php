@@ -3,9 +3,14 @@
 <?php require_once("include/Sessions.php"); ?>
 
 <?php 
+
 	 if(isset($_POST["Submit"])){
 
-	 	$category = $_POST["categoryTitle"];
+	 	$postTitle = $_POST["postTitle"];
+	 	$category = $_POST["category"];
+	 	$image = $_FILES["Image"]["name"];
+	 	$target = "uploads/".basename($_FILES["Image"]["name"]);
+	 	$postText = $_POST["postDescription"];
 	 	$admin = "Zahid";
 
 	 	date_default_timezone_set("Asia/Dhaka");
@@ -13,38 +18,43 @@
 		$DateTime = strftime("%B-%d-%Y %H:%M:%S",$currentTime);
 		//echo $dateTime ;
 	 	
- 	if(empty($category)){
- 		$_SESSION["ErrorMessage"] = "All fileds must be filled out";
- 		Redirect_to("categories.php");
+ 	if(empty($postTitle)){
+ 		$_SESSION["ErrorMessage"] = "Title can't be empty";
+ 		Redirect_to("AddNewPost.php");
  	}
- 	elseif (strlen($category) < 5 ) {
- 		$_SESSION["ErrorMessage"] = " Category Title should be greter then 5 characters ";
- 		Redirect_to("categories.php");
+ 	elseif (strlen($postTitle) < 5 ) {
+ 		$_SESSION["ErrorMessage"] = " Post Title should be greater then 5 characters ";
+ 		Redirect_to("AddNewPost.php");
  	}
- 	elseif (strlen($category) > 100 ) {
- 		$_SESSION["ErrorMessage"] = " Category Title should be less then 100 characters ";
- 		Redirect_to("categories.php");
+ 	elseif (strlen($postText) > 1499 ) {
+ 		$_SESSION["ErrorMessage"] = " Post characters should be less then 1499 characters ";
+ 		Redirect_to("AddNewPost.php");
  	}
  	else{
- 		// query insert in db
-
- 		$sql = "insert into category(title,author,datetime)values(:categoryName,:adminName,:dateTime)";
+ 		// query insert in db post table
+ 		global $connectionDB;
+ 		$sql = "insert into posts(datetime,title,category,author,image,post)";
+ 		$sql .= "values(:dateTime,:postTitle,:categoryName,:adminName,:imageName,:postDescription)";
 
  		// -> pdo obj notation [ PHP data obj]
  		$stmt = $connectionDB->prepare($sql);
+ 		$stmt->bindValue(':dateTime', $DateTime);
+ 		$stmt->bindValue(':postTitle',$postTitle);
  		$stmt->bindValue(':categoryName',$category);
  		$stmt->bindValue(':adminName', $admin);
- 		$stmt->bindValue(':dateTime', $DateTime);
-
+ 		$stmt->bindValue(':imageName',$image);
+ 		$stmt->bindValue(':postDescription',$postText);
+ 		//$stmt->bindValue(':',$);
  		$execute = $stmt->execute();
+ 		//move_uploaded_file($_FILES["image"]["tmp_name"],$target);
 
  		if($execute){
- 			$_SESSION["SuccessMessage"] = "Category added  
+ 			$_SESSION["SuccessMessage"] = "Post added  
  			Id : ".$connectionDB->lastInsertId() ." Successfully";
- 			Redirect_to("categories.php");
+ 			Redirect_to("AddNewPost.php");
  		}else{
  			$_SESSION["ErrorMessage"] = "Something went wrong. Try again!";
- 			Redirect_to("categories.php");
+ 			Redirect_to("AddNewPost.php");
  		}
 
  	}
@@ -153,7 +163,7 @@
 				echo SuccessMessage();
 			?>
 
-			<form class="" action="categories.php" method="post">
+			<form class="" action="AddNewPost.php" method="post" enctype="multipart/form-data" >
 					<div class="card bg-secondary text-light mb-3">
 						<div class="card-body bg-dark">
 							<div class="form-group">
@@ -165,10 +175,9 @@
 							<div class="form-group">
 								<label for="categoryTitle" style="color:white;">Chose Category : </label>
 
-							<select class="form-control" id = "categoryTitle" name="category" >
+							<select class="form-control" id = "CategoryTitle" name="category" >
 								<?php 
 									//fetching all the category from category table
-
 									global $connectionDB;	
 									$sql = "select id,title from category";	
 
@@ -184,26 +193,22 @@
 								 <?php }  ?>
 
 
-
-
 							</select>
 							</div>
 
-							<div class="form-group" mb=1>
+							<div class="form-group mb-1">
 
 								<div class="custom-file">
-									<input class="custom-file-input" type="File" name="image" id="imageSelect" value="">
+									<input class="custom-file-input" type="File" name="Image" id="imageSelect" value="">
 									<label for="imageSelect" class="custom-file-label">Select Image</label>
 								</div>
 								
 							</div>
 
 							<div class="form-group">
-								<label for="post"> <span class="FieldInfo"> Post : </span></label>
-								<textarea class="form-control" id="post" name="postDescription" rows="12" cols="80"></textarea>
+								<label for="Post"> <span class="FieldInfo"> Post : </span></label>
+								<textarea class="form-control" id="Post" name="postDescription" rows="8" cols="80"></textarea>
 							</div>
-
-
 
 
 							<div class="row">
