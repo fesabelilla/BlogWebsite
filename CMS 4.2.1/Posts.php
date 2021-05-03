@@ -118,7 +118,9 @@
 <div class="container py-2 mb-4">
 	<div class="row">
 		<div class="col-lg-12">
-			<table>
+			<table class="table table-striped table-hover">
+				<thead class="thead-dark">
+				
 				<tr>
 					<th>#</th>
 					<th>Title</th>
@@ -131,11 +133,14 @@
 					<th>Live Preview</th>			
 				</tr>
 
+				</thead>
+
 				<?php  
 					global $connectionDB;
 
 					$sql = "select * from posts";
 					$stmt = $connectionDB->query($sql);
+					$sr = 0;
 
 					while ($DataRows = $stmt->fetch()) {
 						$id = $DataRows["id"];
@@ -145,19 +150,71 @@
 						$admin = $DataRows["author"];
 						$image = $DataRows["image"];
 						$postText = $DataRows["post"];
+						$sr++;
 
 				?>
+
+				<tbody>
+
 				<tr>
-					<td>#</td>
-					<td><?php echo $postTitle ; ?></td>
-					<td><?php echo $category ;?></td>
-					<td><?php echo $dateTime ; ?></td>
-					<td><?php echo $admin ;?></td>
-					<td><?php echo $image ; ?></td>
+					<td><?php echo $sr;  ?></td>
+					<td>
+						<?php
+							if (strlen($postTitle)>20){
+								 	$postTitle = substr($postTitle, 0,18)."..";
+								 }	 
+							 echo $postTitle ; 
+						?>
+							 
+					</td>
+
+					<td>
+						<?php
+							if (strlen($category)>8){
+								 	$category = substr($category, 0,8)."..";
+								 }	 
+							echo $category ;
+						?>		
+					</td>
+
+					<td>
+						<?php 
+							if (strlen($dateTime)>11){
+								 	$dateTime = substr($dateTime, 0,11)."..";
+								 }	 
+							echo $dateTime ; 
+						?>
+							
+					</td>
+
+					<td>
+						<?php
+							if (strlen($admin)>7){
+								 	$admin = substr($admin, 0,6)."...";
+								 }	  
+							echo $admin ;
+						?>
+							
+					</td>
+
+					<td>
+						<img src="uploads/<?php echo $image ; ?>" width="170px;" height="50px">
+					</td>
+
 					<td>Comments</td>
-					<td>Action</td>
-					<td>Live Preview</td>
+
+					<td>
+						<a href="#"><span class="btn btn-warning">Edit</span></a>
+						<a href="#"><span class="btn btn-danger">Delete</span></a>
+
+					</td>
+
+					<td>
+						<a href="#"><span class="btn btn-primary">Live Preview</span></a>
+					</td>
+
 				</tr>
+				</tbody>
 
 				<?php } ?>
 
