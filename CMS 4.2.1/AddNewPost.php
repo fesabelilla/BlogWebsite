@@ -46,11 +46,12 @@
  		$stmt->bindValue(':postDescription',$postText);
  		//$stmt->bindValue(':',$);
  		$execute = $stmt->execute();
- 		//move_uploaded_file($_FILES["image"]["tmp_name"],$target);
+ 		
+ 		move_uploaded_file($_FILES["Image"]["tmp_name"],$target);
 
  		if($execute){
- 			$_SESSION["SuccessMessage"] = "Post added  
- 			Id : ".$connectionDB->lastInsertId() ." Successfully";
+ 			$_SESSION["SuccessMessage"] = "Post  
+ 			Id : ".$connectionDB->lastInsertId() ." added Successfully";
  			Redirect_to("AddNewPost.php");
  		}else{
  			$_SESSION["ErrorMessage"] = "Something went wrong. Try again!";
