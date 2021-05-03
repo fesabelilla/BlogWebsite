@@ -1,3 +1,8 @@
+<?php require_once("include/db.php"); ?>
+<?php require_once("include/function.php"); ?>
+<?php require_once("include/Sessions.php"); ?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -115,8 +120,48 @@
 		<div class="col-lg-12">
 			<table>
 				<tr>
-								
+					<th>#</th>
+					<th>Title</th>
+					<th>Category</th>
+					<th>Date&Time</th>
+					<th>Author</th>
+					<th>Banner</th>
+					<th>Comments</th>
+					<th>Action</th>
+					<th>Live Preview</th>			
 				</tr>
+
+				<?php  
+					global $connectionDB;
+
+					$sql = "select * from posts";
+					$stmt = $connectionDB->query($sql);
+
+					while ($DataRows = $stmt->fetch()) {
+						$id = $DataRows["id"];
+						$dateTime = $DataRows["datetime"];
+						$postTitle = $DataRows["title"];
+						$category = $DataRows["category"];
+						$admin = $DataRows["author"];
+						$image = $DataRows["image"];
+						$postText = $DataRows["post"];
+
+				?>
+				<tr>
+					<td>#</td>
+					<td><?php echo $postTitle ; ?></td>
+					<td><?php echo $category ;?></td>
+					<td><?php echo $dateTime ; ?></td>
+					<td><?php echo $admin ;?></td>
+					<td><?php echo $image ; ?></td>
+					<td>Comments</td>
+					<td>Action</td>
+					<td>Live Preview</td>
+				</tr>
+
+				<?php } ?>
+
+
 			</table>
 		</div>
 	</div>
