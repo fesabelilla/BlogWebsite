@@ -106,10 +106,27 @@
 	</div>
 </div>
 </header>
+<!--HEADER  -->
 
 
-<br>
-<!-- -->
+<!-- Main Area Start -->
+<div class="container py-2 mb-4">
+	<div class="row">
+		<div class="col-lg-12">
+			<table>
+				<tr>
+								
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+<!-- Main Area End -->
 
 <!-- FOOTER -->
 <footer class="bg-dark text-white">
